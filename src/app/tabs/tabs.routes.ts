@@ -7,9 +7,15 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'tab1C',
         loadComponent: () =>
           import('../tab1 - Ciudades/tab1.page').then((m) => m.Tab1Page),
+      },
+      
+      {
+        path: 'tab1',
+        loadComponent: () =>
+          import('../tab1 - Ciudades -ADMIN/tab1.page').then((m) => m.Tab1Page),
       },
       {
         path: 'tab2',

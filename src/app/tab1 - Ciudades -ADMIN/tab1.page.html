@@ -1,0 +1,37 @@
+<ion-content>
+  <ion-list *ngIf="ciudades.length > 0; else sinCiudades">
+    <ion-card *ngFor="let ciudad of ciudades">
+      <ion-card-header>
+        <ion-card-title>{{ ciudad.nombre }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img [src]="ciudad.imageUrl" *ngIf="ciudad.imageUrl" alt="Imagen de ciudad" style="width: 100%; height: auto;">
+
+        <div *ngIf="perfil === 'Admin'">
+          <ion-button color="danger" (click)="eliminarCiudad(ciudad._id)">Eliminar</ion-button>
+          <ion-button color="warning" (click)="cargarFormulario(ciudad)">Editar</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ng-template #sinCiudades>
+    <ion-item>
+      <ion-label>No hay ciudades disponibles para este país.</ion-label>
+    </ion-item>
+  </ng-template>
+
+  <!-- Formulario de ciudad -->
+  <ion-card *ngIf="perfil === 'Admin'">
+    <ion-card-header>
+      <ion-card-title>{{ ciudadForm._id ? 'Editar' : 'Crear' }} Ciudad</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input label="Nombre" [(ngModel)]="ciudadForm.nombre"></ion-input>
+      <ion-input label="URL de imagen" [(ngModel)]="ciudadForm.imageUrl"></ion-input>
+      <ion-button expand="full" (click)="guardarCiudad()">
+        {{ ciudadForm._id ? 'Actualizar' : 'Crear' }}
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';  // tu servicio auth
-import { PaisService } from 'src/app/services/pais.service';  // tu servicio pais
+import { AuthService } from 'src/app/services/auth.service';
+import { PaisService } from 'src/app/services/pais.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppInitService {
@@ -14,17 +14,29 @@ export class AppInitService {
 
   async initApp() {
     const token = await this.authService.getToken();
+
+    // Verifica si hay token, si no, va a login
     if (!token) {
       this.router.navigate(['/login']);
       return;
     }
 
+    // Verifica si hay país seleccionado
     const pais = await this.paisService.getPais();
     if (!pais) {
       this.router.navigate(['/select-country']);
       return;
     }
 
-    this.router.navigate(['/tabs/tab1']);
+    // Decodifica el token para obtener el perfil
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const perfil = payload.perfil;
+
+    // Redirige según el perfil
+    if (perfil === 'Admin') {
+      this.router.navigate(['/tabs/tab1']);
+    } if (perfil === 'Comun') {
+      this.router.navigate(['/tabs/tab1C']);
+    }
   }
 }
