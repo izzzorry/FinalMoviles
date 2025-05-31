@@ -1,9 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Ciudades de {{ nombrePais }}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-header-tabs></app-header-tabs>
 <ion-content>
   <ion-list *ngIf="ciudades.length > 0; else sinCiudades">
     <ion-card *ngFor="let ciudad of ciudades">

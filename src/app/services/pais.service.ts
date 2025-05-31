@@ -5,21 +5,19 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root'
 })
 export class PaisService {
-  private readonly key = 'paisSeleccionado';
+  private storageKey = 'paisSeleccionado';
 
-  constructor(private storage: Storage) {
-    this.storage.create();
-  }
+  constructor(private storage: Storage) {}
 
   async setPais(pais: any): Promise<void> {
-    await this.storage.set(this.key, pais);
+    await this.storage.set(this.storageKey, pais);
   }
 
   async getPais(): Promise<any> {
-    return await this.storage.get(this.key);
+    return await this.storage.get(this.storageKey);
   }
 
   async clearPais(): Promise<void> {
-    await this.storage.remove(this.key);
+    await this.storage.remove(this.storageKey);
   }
 }

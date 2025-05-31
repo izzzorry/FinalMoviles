@@ -1,5 +1,29 @@
 <app-header-tabs></app-header-tabs>
 
 <ion-content class="ion-padding">
-  <!-- Aquí va el contenido del tab -->
+  <ion-list *ngIf="sitios.length > 0">
+    <ion-item *ngFor="let sitio of sitios">
+      <ion-thumbnail slot="start" *ngIf="sitio.imageUrl">
+        <img [src]="sitio.imageUrl" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ sitio.nombre }}</h2>
+        <p>{{ sitio.ciudad_id?.nombre }}</p>
+        <p *ngIf="sitio.tipo">Tipo: {{ sitio.tipo }}</p>
+      </ion-label>
+      <ion-button fill="clear" slot="end" (click)="toggleFavorito(sitio._id)">
+        <ion-icon
+          [name]="esFavorito(sitio._id) ? 'heart' : 'heart-outline'"
+          slot="icon-only"
+        ></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="sitios.length === 0">
+    No hay sitios registrados para este país.
+  </ion-text>
 </ion-content>
+
+
+

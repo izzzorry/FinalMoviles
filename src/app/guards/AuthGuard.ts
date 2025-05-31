@@ -25,6 +25,6 @@ export class AppInitService {
       return;
     }
 
-    this.router.navigate(['/tab1']);
+    this.router.navigate(['/tabs/tab1']);
   }
 }

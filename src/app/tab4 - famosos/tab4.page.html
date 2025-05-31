@@ -1,5 +1,25 @@
 <app-header-tabs></app-header-tabs>
 
 <ion-content class="ion-padding">
-  <!-- Aquí va el contenido del tab -->
+  <ion-list *ngIf="famosos.length > 0">
+    <ion-item *ngFor="let famoso of famosos">
+      <ion-thumbnail slot="start" *ngIf="famoso.imageUrl">
+        <img [src]="famoso.imageUrl" />
+      </ion-thumbnail>
+
+      <ion-label>
+        <h2>{{ famoso.nombre }}</h2>
+        <p>{{ famoso.ciudad_nacimiento_id?.nombre }}</p>
+        <p>Categoría: {{ famoso.categoria }}</p>
+      </ion-label>
+
+      <ion-button slot="end" fill="clear" (click)="tomarFoto(famoso)">
+        <ion-icon name="camera" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="famosos.length === 0">
+    No hay personas famosas registradas para este país.
+  </ion-text>
 </ion-content>

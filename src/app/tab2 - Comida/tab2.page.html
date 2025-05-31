@@ -1,5 +1,16 @@
 <app-header-tabs></app-header-tabs>
 
 <ion-content class="ion-padding">
-  <!-- Aquí va el contenido del tab -->
+  <ion-list *ngIf="comidas.length > 0">
+    <ion-item *ngFor="let comida of comidas">
+      <ion-label>
+        <h2>{{ comida.nombre }}</h2>
+        <p>{{ comida.descripcion }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="comidas.length === 0">
+    No hay comidas disponibles para este país.
+  </ion-text>
 </ion-content>
