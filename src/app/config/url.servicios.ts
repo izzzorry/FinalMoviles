@@ -1,0 +1,1 @@
+export const URL_HEROES = "https://web-production-febab.up.railway.app/api";
