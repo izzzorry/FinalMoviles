@@ -34,6 +34,6 @@ export class SelectCountryPage implements OnInit {
 
   async selectCountry(country: any) {
     await this.storage.set('paisSeleccionado', country);
-    this.router.navigate(['/tab1']); // o el tab inicial que uses
+    this.router.navigate(['/tabs/tab1']); // o el tab inicial que uses
   }
 }

@@ -1,5 +1,24 @@
-<app-header-tabs></app-header-tabs>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ciudades de {{ nombrePais }}</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content class="ion-padding">
-  <!-- Contenido de la pestaña -->
+<ion-content>
+  <ion-list *ngIf="ciudades.length > 0; else sinCiudades">
+    <ion-card *ngFor="let ciudad of ciudades">
+      <ion-card-header>
+        <ion-card-title>{{ ciudad.nombre }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img [src]="ciudad.imageUrl" *ngIf="ciudad.imageUrl" alt="Imagen de ciudad" style="width: 100%; height: auto;">
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ng-template #sinCiudades>
+    <ion-item>
+      <ion-label>No hay ciudades disponibles para este país.</ion-label>
+    </ion-item>
+  </ng-template>
 </ion-content>
