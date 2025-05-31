@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Selecciona un País</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-button
+      *ngFor="let country of countries"
+      expand="block"
+      shape="round"
+      color="medium"
+      (click)="selectCountry(country)">
+      {{ country.nombre }}
+    </ion-button>
+  </ion-list>
+</ion-content>
