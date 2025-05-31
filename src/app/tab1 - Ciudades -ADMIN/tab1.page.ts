@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicModule, ModalController, AlertController } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { PaisService } from 'src/app/services/pais.service';
 import { CiudadService } from 'src/app/services/ciudad.service';
@@ -22,10 +22,11 @@ export class Tab1Page {
   idPais: string = '';
   nombrePais: string = '';
   ciudades: any[] = [];
-  esAdmin: boolean = false;
 
-  ciudadSeleccionada: any = { nombre: '', imageUrl: '' };
+  perfil: string = ''; // <- para el HTML *ngIf="perfil === 'Admin'"
+  ciudadForm: any = { nombre: '', imageUrl: '' }; // <- para el formulario
   enEdicion: boolean = false;
+  ciudadSeleccionada: any = null;
 
   constructor(
     private paisService: PaisService,
@@ -42,7 +43,7 @@ export class Tab1Page {
     if (token) {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        this.esAdmin = payload.perfil === 'Admin';
+        this.perfil = payload.perfil; // <-- usado en el HTML
       } catch (err) {
         console.error('Error al verificar rol:', err);
       }
@@ -54,7 +55,6 @@ export class Tab1Page {
     if (pais && pais._id) {
       this.idPais = pais._id;
       this.nombrePais = pais.nombre;
-
       this.obtenerCiudades();
     }
   }
@@ -70,35 +70,35 @@ export class Tab1Page {
     });
   }
 
-  crearCiudad() {
-    this.enEdicion = false;
-    this.ciudadSeleccionada = { nombre: '', imageUrl: '' };
+  cargarFormulario(ciudad: any) {
+    this.enEdicion = true;
+    this.ciudadSeleccionada = ciudad;
+    this.ciudadForm = { ...ciudad }; // copia para edición
   }
 
-  editarCiudad(ciudad: any) {
-    this.enEdicion = true;
-    this.ciudadSeleccionada = { ...ciudad };
+  crearCiudad() {
+    this.enEdicion = false;
+    this.ciudadSeleccionada = null;
+    this.ciudadForm = { nombre: '', imageUrl: '' };
   }
 
   guardarCiudad() {
-    if (!this.ciudadSeleccionada.nombre) return;
+    if (!this.ciudadForm.nombre) return;
 
     const payload = {
-      nombre: this.ciudadSeleccionada.nombre,
-      imageUrl: this.ciudadSeleccionada.imageUrl,
+      nombre: this.ciudadForm.nombre,
+      imageUrl: this.ciudadForm.imageUrl,
       pais_id: this.idPais
     };
 
-    if (this.enEdicion && this.ciudadSeleccionada._id) {
+    if (this.enEdicion && this.ciudadSeleccionada && this.ciudadSeleccionada._id) {
       this.ciudadService.actualizarCiudad(this.ciudadSeleccionada._id, payload).subscribe(() => {
-        this.ciudadSeleccionada = { nombre: '', imageUrl: '' };
-        this.enEdicion = false;
+        this.resetFormulario();
         this.obtenerCiudades();
       });
     } else {
       this.ciudadService.crearCiudad(payload).subscribe(() => {
-        this.ciudadSeleccionada = { nombre: '', imageUrl: '' };
-        this.enEdicion = false;
+        this.resetFormulario();
         this.obtenerCiudades();
       });
     }
@@ -122,5 +122,11 @@ export class Tab1Page {
     });
 
     await alerta.present();
+  }
+
+  resetFormulario() {
+    this.enEdicion = false;
+    this.ciudadSeleccionada = null;
+    this.ciudadForm = { nombre: '', imageUrl: '' };
   }
 }
