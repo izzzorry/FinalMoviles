@@ -9,6 +9,11 @@ export const routes: Routes = [
   { path: 'login', component: LoginPage },
   { path: 'register', component: RegisterPage },
   { path: 'select-country', component: SelectCountryPage },
+  { path: 'menu-sitio/:plato_id', loadComponent: () => import('./pages/menu-sitio/menu-sitio.page').then(m => m.MenuSitioPage) },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage)
+  },
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),

@@ -1,5 +1,6 @@
 <app-header-tabs></app-header-tabs>
 
+
 <ion-content class="ion-padding">
   <ion-list *ngIf="famosos.length > 0">
     <ion-item *ngFor="let famoso of famosos">
@@ -13,7 +14,12 @@
         <p>Categoría: {{ famoso.categoria }}</p>
       </ion-label>
 
-      <ion-button slot="end" fill="clear" (click)="tomarFoto(famoso)">
+      <!-- Botón de cámara: al presionar, se toma la foto y luego aparece el selector de sitio -->
+      <ion-button
+        slot="end"
+        fill="clear"
+        (click)="tomarFoto(famoso)"
+      >
         <ion-icon name="camera" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-item>

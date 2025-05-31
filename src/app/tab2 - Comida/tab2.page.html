@@ -2,7 +2,7 @@
 
 <ion-content class="ion-padding">
   <ion-list *ngIf="comidas.length > 0">
-    <ion-item *ngFor="let comida of comidas">
+    <ion-item *ngFor="let comida of comidas" [routerLink]="['/menu-sitio', comida._id]">
       <ion-label>
         <h2>{{ comida.nombre }}</h2>
         <p>{{ comida.descripcion }}</p>

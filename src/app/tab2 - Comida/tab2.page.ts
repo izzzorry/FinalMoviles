@@ -6,6 +6,7 @@ import { HeaderTabsComponent } from '../componentes/header-tabs/header-tabs.comp
 import { HttpClient } from '@angular/common/http';
 import { URL_Back } from 'src/app/config/url.servicios';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -15,7 +16,8 @@ import { CommonModule } from '@angular/common';
   imports: [
   IonicModule,
   CommonModule,
-  HeaderTabsComponent
+  HeaderTabsComponent,
+  RouterModule
 ]
 })
 export class Tab2Page implements OnInit {

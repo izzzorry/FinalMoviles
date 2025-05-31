@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { addIcons } from 'ionicons';
+import { personCircleOutline } from 'ionicons/icons';
 
 @Component({
   standalone: true,
@@ -17,7 +19,9 @@ export class HeaderTabsComponent implements OnInit {
   countryName: string = 'País';
   showUserButton: boolean = true;
 
-  constructor(private router: Router, private storage: Storage) {}
+  constructor(private router: Router, private storage: Storage) {
+    addIcons({ personCircleOutline });
+  }
 
   async ngOnInit() {
     const pais = await this.storage.get('paisSeleccionado');
@@ -29,6 +33,6 @@ export class HeaderTabsComponent implements OnInit {
   }
 
   openUserMenu() {
-    console.log('Abrir perfil o menú de usuario');
+    this.router.navigate(['/profile']);
   }
 }

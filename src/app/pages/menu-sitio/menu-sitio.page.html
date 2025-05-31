@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Menú del Plato</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="menus.length > 0">
+    <ion-item *ngFor="let item of menus">
+      <ion-label>
+        <h2>{{ item.sitioId.nombre }}</h2>
+        <p>Tipo de sitio: {{ item.sitioId.tipo }}</p>
+        <p>Valor: ${{ item.valorPlato }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="menus.length === 0">
+    Este plato no está disponible en ningún sitio.
+  </ion-text>
+</ion-content>
