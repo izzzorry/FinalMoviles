@@ -1,3 +1,5 @@
+// src/app/pages/menu-sitio/menu-sitio.page.ts
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -15,18 +17,28 @@ export class MenuSitioPage implements OnInit {
   platoId: string = '';
   menus: any[] = [];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
+    // Extracción exacta del parámetro “plato_id” de la URL
     this.platoId = this.route.snapshot.paramMap.get('plato_id') || '';
     this.cargarMenuPorPlato();
   }
 
   cargarMenuPorPlato() {
-    this.http.get(`${URL_Back}/menu-sitio/por-plato/${this.platoId}`).subscribe({
-  next: (res: any) => this.menus = res,
-  error: (err) => console.error('Error cargando menú', err),
-});
-
+    // IMPORTANTE: usar “menu_sitios” (guión bajo), tal y como lo monta tu backend:
+    this.http
+      .get<any[]>(`${URL_Back}/menu_sitios/por-plato/${this.platoId}`)
+      .subscribe({
+        next: (res) => {
+          this.menus = res;
+        },
+        error: (err) => {
+          console.error('Error cargando menú', err);
+        }
+      });
   }
 }

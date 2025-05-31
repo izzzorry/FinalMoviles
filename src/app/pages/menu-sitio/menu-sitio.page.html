@@ -1,5 +1,17 @@
+<!-- src/app/pages/menu-sitio/menu-sitio.page.html -->
+
 <ion-header>
   <ion-toolbar>
+    <!-- Flecha “volver” al slot start -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+      <!-- 
+        defaultHref="/tab2" 
+        -> Si el historial de navegación está vacío, este será el destino.
+        Cambia "/tab2" al path de la página de comidas típicas (por ejemplo "/tabs/tab2" si así la definiste).
+      -->
+    </ion-buttons>
+
     <ion-title>Menú del Plato</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,9 +20,9 @@
   <ion-list *ngIf="menus.length > 0">
     <ion-item *ngFor="let item of menus">
       <ion-label>
-        <h2>{{ item.sitioId.nombre }}</h2>
-        <p>Tipo de sitio: {{ item.sitioId.tipo }}</p>
-        <p>Valor: ${{ item.valorPlato }}</p>
+        <h2>{{ item.sitio_id?.nombre }}</h2>
+        <p>Tipo de sitio: {{ item.sitio_id?.tipo }}</p>
+        <p>Valor: ${{ item.valor_plato }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
